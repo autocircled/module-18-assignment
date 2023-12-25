@@ -41,6 +41,9 @@ const productSchema = new mongoose.Schema({
         ref: "brands",
         required: true,
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const ProductModel = mongoose.model("products", productSchema);

@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema({
     otp: {
         type: String
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const UserModel = mongoose.model("users", userSchema);

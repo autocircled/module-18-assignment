@@ -11,6 +11,9 @@ const featuresSchema = new mongoose.Schema({
     img: {
         type: String
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const FeaturesModel = mongoose.model("features", featuresSchema);

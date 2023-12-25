@@ -42,6 +42,9 @@ const invoiceSchema = new mongoose.Schema({
         type: Number,
         required: true,
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const InvoiceModel = mongoose.model("invoices", invoiceSchema);

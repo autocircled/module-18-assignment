@@ -19,6 +19,9 @@ const productSliderSchema = new mongoose.Schema({
         ref: "products",
         required: true,
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const ProductSliderModel = mongoose.model("productSlider", productSliderSchema);

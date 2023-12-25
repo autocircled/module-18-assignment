@@ -28,10 +28,15 @@ const invoiceProductSchema = new mongoose.Schema({
     },
     color: {
         type: String,
+        required: true,
     },
     size: {
         type: String,
+        required: true,
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const InvoiceProductModel = mongoose.model("invoiceProducts", invoiceProductSchema);

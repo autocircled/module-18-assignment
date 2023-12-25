@@ -8,6 +8,9 @@ const brandSchema = new mongoose.Schema({
     brandImg: {
         type: String
     }
+}, {
+    timestamps: false,
+    versionKey: false
 })
 
 const BrandModel = mongoose.model("brands", brandSchema);

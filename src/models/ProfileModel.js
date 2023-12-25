@@ -8,12 +8,15 @@ const profileSchema = new mongoose.Schema({
     },
     cus_add: {
         type: String,
+        required: true,
     },
     cus_city: {
         type: String,
+        required: true,
     },
     cus_country: {
         type: String,
+        required: true,
     },
     cus_fax: {
         type: String,
@@ -53,6 +56,9 @@ const profileSchema = new mongoose.Schema({
     ship_state: {
         type: String,
     }
+}, {
+    timestamps: false,
+    versionKey: false
 })
 
 const ProfileModel = mongoose.model("profile", profileSchema);

@@ -12,13 +12,18 @@ const reviewSchema = new mongoose.Schema({
         required: true,
     }, 
     des: {
-        type: String
+        type: String,
+        required: true,
     }, 
     rating: {
         type: Number,
+        required: true,
         min: 1,
         max: 5
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const ReviewModel = mongoose.model("reviews", reviewSchema);

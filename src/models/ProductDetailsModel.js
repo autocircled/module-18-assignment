@@ -18,15 +18,20 @@ const productDetailsSchema = new mongoose.Schema({
     },
     color: {
         type: Array,
+        required: true,
     },
     size: {
         type: Array,
+        required: true,
     },
     productID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "products",
         required: true,
     }
+}, {
+    timestamps: false,
+    versionKey: false
 })
 
 const ProductDetailsModel = mongoose.model("productDetails", productDetailsSchema);

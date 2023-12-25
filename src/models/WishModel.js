@@ -11,6 +11,9 @@ const wishSchema = new mongoose.Schema({
         ref: "users",
         required: true,
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const WishModel = mongoose.model("wishes", wishSchema);

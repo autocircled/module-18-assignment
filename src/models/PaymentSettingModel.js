@@ -33,6 +33,9 @@ const paymentSettingSchema = new mongoose.Schema({
         type: String,
         required: true,  
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const PaymentSettingModel = mongoose.model("payment_settings", paymentSettingSchema);

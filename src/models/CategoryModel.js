@@ -8,6 +8,9 @@ const categorySchema = new mongoose.Schema({
     categoryImg: {
         type: String
     }
+}, {
+    timestamps: false,
+    versionKey: false
 })
 
 const CategoryModel = mongoose.model("categories", categorySchema);
