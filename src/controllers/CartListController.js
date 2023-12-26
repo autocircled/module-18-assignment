@@ -1,18 +1,27 @@
-const { CartService } = require("../services/CartListService");
+const { SaveCartListService, RemoveCartListService, CartListService, UpdateCartListService } = require("../services/CartListServices");
 
-exports.CartList = async (req , res)=>{
-    let result =  await CartService(req);
-    return res.status(200).json(result)
+exports.SaveCartList = async(req, res) =>{
+    const result = await SaveCartListService(req)
+    res.status(200).json(result);
 }
 
-exports.CartDelete = async (req , res)=>{
-    
+
+
+exports.RemoveCartList = async(req, res) =>{
+    const result = await RemoveCartListService(req)
+    res.status(200).json(result);
 }
 
-exports.CartUpdate = async (req , res)=>{
-    
+
+
+exports.CartList = async(req, res) =>{
+    const result = await CartListService(req)
+    res.status(200).json(result);
 }
 
-exports.CartCreate = async (req , res)=>{
-    
+
+
+exports.UpdateCartList = async(req, res) =>{
+    const result = await UpdateCartListService(req)
+    res.status(200).json(result);
 }

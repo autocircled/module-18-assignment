@@ -1,43 +1,38 @@
-const WishModel = require("../models/WishModel");
+const CartModel = require("../models/CartModel");
 const mongoose = require("mongoose");
-const ObjectID= mongoose.Types.ObjectId;
+const ObjectID= mongoose.Types.ObjectId
 
-exports.SaveWishListService = async(req) =>{
+exports.SaveCartListService = async(req) =>{
     try {
         const user_id = req.headers.user_id;
         const reqBody = req.body;
         reqBody.userID = user_id;
-
-        await WishModel.updateOne(reqBody, {$set:reqBody }, {upsert: true} );
-        return {status:"success",message:"Wish List Save Success"}
-
-
-    } catch (error) {
-        return {status:"fail",message:"Something Went Wrong !"}
-    }
-
-
-}
-
-exports.RemoveWishListService = async(req) =>{
-    try {
-        const user_id = req.headers.user_id;
-        const reqBody = req.body;
-		// console.log(reqBody, user_id);
-
-        reqBody.userID = user_id;
-        
-        await WishModel.deleteOne(reqBody);
-        return {status:"success", message:"Wish List Remove Success"}
-
-
+        // console.log(reqBody, user_id);
+        await CartModel.create(reqBody);
+        return {status:"success", message:"Product Added to Cart"}
     } catch (error) {
         return {status:"fail", message:"Something Went Wrong !"}
     }
 }
 
 
-exports.WishListService = async(req) =>{
+
+exports.RemoveCartListService = async(req) =>{
+    try {
+        const reqBody = req.body;
+        await CartModel.deleteOne(reqBody)
+        return {status:"success", message:"Product Delete from Cart"}
+
+
+    } catch (error) {
+        return {status:"fail",  message:"Something Went Wrong !"}
+    }
+}
+
+
+
+
+exports.CartListService = async(req) =>{
     try {
       const user_id = new ObjectID(req.headers.user_id);
       const MatchStage = {$match: {userID: user_id }};
@@ -52,7 +47,7 @@ exports.WishListService = async(req) =>{
       const UnwindCategoryStage ={$unwind: "$category"}
 
 
-      const data = await WishModel.aggregate([
+      const data = await CartModel.aggregate([
         MatchStage,
         JoinProductStage, UnwindProductStage,
         JoinBrandStage, UnwindBrandStage,
@@ -60,9 +55,25 @@ exports.WishListService = async(req) =>{
       ]);
        
       return {status:"success",data:data}
+        
+    } catch (error) {
+        return {status:"fail",message:"Something Went Wrong !"}
+    }
+}
+
+
+
+exports.UpdateCartListService = async(req) =>{
+    try {
+        const cartID = req.params.cartID;
+        const user_id = req.headers.user_id;
+        const reqBody = req.body;
+
+        await CartModel.updateOne({_id: cartID, userID: user_id }, {$set: reqBody })
+        return {status:"success", message:"Product Updated Successfully"}
 
 
     } catch (error) {
-        return {status:"fail",message:"Something Went Wrong !"}
+        return {status:"fail",  message:"Something Went Wrong !"}
     }
 }

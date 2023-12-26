@@ -29,12 +29,16 @@ router.post('/CreateProfile', AuthVerification, UserController.CreateProfile)
 router.post('/UpdateProfile', AuthVerification, UserController.CreateProfile)
 router.get('/ReadProfile', AuthVerification, UserController.ReadProfile)
 
+// WishList
+const WishListController = require('../controllers/WishListController')
+router.post('/SaveWishList', AuthVerification, WishListController.SaveWishList)
+router.post('/RemoveWishList', AuthVerification, WishListController.RemoveWishList)
+router.get('/WishList', AuthVerification, WishListController.WishList)
 
-// router.post('/SaveWishList')
-// router.post('/RemoveWishList')
-// router.get('/WishList')
-// router.post('/SaveCartList')
-// router.post('/RemoveCartList')
-// router.get('/CartList')
+// Cart
+const CartListController = require('../controllers/CartListController')
+router.post('/SaveCartList', AuthVerification, CartListController.SaveCartList)
+router.post('/RemoveCartList', AuthVerification, CartListController.RemoveCartList)
+router.get('/CartList', AuthVerification, CartListController.CartList)
 
 module.exports = router;
