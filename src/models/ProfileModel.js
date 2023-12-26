@@ -57,9 +57,9 @@ const profileSchema = new mongoose.Schema({
         type: String,
     }
 }, {
-    timestamps: false,
+    timestamps: true,
     versionKey: false
 })
 
-const ProfileModel = mongoose.model("profile", profileSchema);
+const ProfileModel = mongoose.model("profiles", profileSchema);
 module.exports = ProfileModel;

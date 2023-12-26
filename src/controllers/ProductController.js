@@ -8,8 +8,7 @@ const {
     ListByKeywordService,
     ListByRemarkService,
     ProductDetailsService,
-    ReviewListService,
-    CreateReviewService
+    ReviewListService
 } = require('../services/ProductServices')
 
 exports.ProductBrandList = async (req, res) => {
@@ -62,7 +61,4 @@ exports.ProductReviewList = async (req, res) => {
     return res.status(200).json(result)
 }
 
-exports.CreateProductReview = async (req, res) => {
-    
-}
 

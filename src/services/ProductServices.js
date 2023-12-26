@@ -2,7 +2,6 @@ const BrandModel = require("../models/BrandModel");
 const CategoryModel = require("../models/CategoryModel");
 const ProductSliderModel = require("../models/ProductSliderModel");
 const ProductModel = require("../models/ProductModel");
-const ProductDetailsModel = require("../models/ProductDetailsModel");
 const ReviewModel = require("../models/ReviewModel");
 
 const mongoose = require("mongoose");
@@ -263,7 +262,7 @@ const ListByRemarkService = async (req) => {
                 from: "brands",
                 localField: "brandID",
                 foreignField: "_id",
-                as: "brands",
+                as: "brand",
             },
         };
 
@@ -272,19 +271,19 @@ const ListByRemarkService = async (req) => {
                 from: "categories",
                 localField: "categoryID",
                 foreignField: "_id",
-                as: "categories",
+                as: "category",
             },
         };
 
-        let unwindBrandStage = { $unwind: "$brands" };
-        let unwindCategoryStage = { $unwind: "$categories" };
+        let unwindBrandStage = { $unwind: "$brand" };
+        let unwindCategoryStage = { $unwind: "$category" };
 
         let projectionStage = {
             $project: {
                 "brand._id": 0,
                 "category._id": 0,
-                categoryID: 0,
-                brandID: 0,
+                "categoryID": 0,
+                'brandID': 0,
             },
         };
 
@@ -304,10 +303,10 @@ const ListByRemarkService = async (req) => {
 
 const ProductDetailsService = async (req) => {
     try {
-        let ProductID = new ObjectId(req.params.ProductID);
-        let matchStage = { $match: { _id: ProductID } };
+        const ProductID = new ObjectId(req.params.ProductID);
+        const matchStage = { $match: { _id: ProductID } };
 
-        let joinWithBrandStage = {
+        const joinWithBrandStage = {
             $lookup: {
                 from: "brands",
                 localField: "brandID",
@@ -316,7 +315,7 @@ const ProductDetailsService = async (req) => {
             },
         };
 
-        let joinWithCategoryStage = {
+        const joinWithCategoryStage = {
             $lookup: {
                 from: "categories",
                 localField: "categoryID",
@@ -324,27 +323,29 @@ const ProductDetailsService = async (req) => {
                 as: "category",
             },
         };
-        let joinWithDetailsStage = {
+        const joinWithDetailsStage = {
             $lookup: {
-                from: "productDetails",
+                from: "productdetails",
                 localField: "_id",
                 foreignField: "productID",
                 as: "details",
             },
         };
 
-        let projectionStage = {
+        const projectionStage = {
             $project: {
                 "brand._id": 0,
                 "category._id": 0,
+                'categoryID':0,
+                'brandID':0
             },
         };
 
-        let unwindBrandStage = { $unwind: "$brand" };
-        let unwindCategoryStage = { $unwind: "$category" };
-        let unwindDetailStage = { $unwind: "$details" };
+        const unwindBrandStage = { $unwind: "$brand" };
+        const unwindCategoryStage = { $unwind: "$category" };
+        const unwindDetailStage = { $unwind: "$details" };
 
-        let data = await ProductModel.aggregate([
+        const data = await ProductModel.aggregate([
             matchStage,
             joinWithBrandStage,
             joinWithCategoryStage,

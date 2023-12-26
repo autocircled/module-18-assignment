@@ -17,11 +17,11 @@ const productDetailsSchema = new mongoose.Schema({
         type: String,
     },
     color: {
-        type: Array,
+        type: String,
         required: true,
     },
     size: {
-        type: Array,
+        type: String,
         required: true,
     },
     productID: {
@@ -30,9 +30,9 @@ const productDetailsSchema = new mongoose.Schema({
         required: true,
     }
 }, {
-    timestamps: false,
+    timestamps: true,
     versionKey: false
 })
 
-const ProductDetailsModel = mongoose.model("productDetails", productDetailsSchema);
+const ProductDetailsModel = mongoose.model("productdetails", productDetailsSchema);
 module.exports = ProductDetailsModel
