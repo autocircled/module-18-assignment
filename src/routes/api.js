@@ -5,6 +5,8 @@ router.get('/', (req, res) => {
     res.send('API is running...')
 })
 
+const AuthVerification = require('../middlewares/AuthVerification')
+
 // Product
 const ProductController = require('../controllers/ProductController')
 router.get('/ProductBrandList', ProductController.ProductBrandList)
@@ -18,12 +20,16 @@ router.get('/ProductListByRemark/:Remark', ProductController.ProductListByRemark
 router.get('/ProductDetails/:ProductID', ProductController.ProductDetails)
 router.get('/ProductReviewList/:ProductID', ProductController.ProductReviewList)
 
-// router.get('/UserOTP/:email')
-// router.get('/VerifyLogin/:email/:otp')
-// router.get('/UserLogout')
-// router.post('/CreateProfile')
-// router.post('/UpdateProfile')
-// router.get('/ReadProfile')
+// User
+const UserController = require('../controllers/UserController')
+router.get('/UserOTP/:email', UserController.UserOTP)
+router.get('/VerifyLogin/:email/:otp', UserController.VerifyLogin)
+router.get('/UserLogout', AuthVerification, UserController.UserLogout)
+router.post('/CreateProfile', AuthVerification, UserController.CreateProfile)
+router.post('/UpdateProfile', AuthVerification, UserController.CreateProfile)
+router.get('/ReadProfile', AuthVerification, UserController.ReadProfile)
+
+
 // router.post('/SaveWishList')
 // router.post('/RemoveWishList')
 // router.get('/WishList')

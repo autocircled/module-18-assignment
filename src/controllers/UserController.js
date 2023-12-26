@@ -1,12 +1,12 @@
 const {
-  userOTPService,
+  UserOTPService,
   verifyOTPService,
   SaveProfileService,
   ReadProfileService,
-} = require("../services/UserService");
+} = require("../services/UserServices");
 
 exports.UserOTP = async (req, res) => {
-  const result = await userOTPService(req);
+  const result = await UserOTPService(req);
   return res.status(200).json(result);
 };
 
@@ -25,22 +25,23 @@ exports.VerifyLogin = async (req, res) => {
   }
 };
 
-exports.UserLogOut = async (req, res) => {
+exports.UserLogout = async (req, res) => {
 
   let cookieOption = {
     expires: new Date(Date.now() - 24 * 6060 * 10000),
     httpOnly: false,
   };
-  res.cookie("token", result["token"], cookieOption);
+  res.cookie("token", "", cookieOption);
   return res.status(200).json({status:"success"});
 };
 
 
 exports.CreateProfile = async (req, res) => {
-  const result = await SaveProfileService  (req);
+  const result = await SaveProfileService(req);
   return res.status(200).json(result);
   
 };
+
 exports.UpdateProfile = async (req, res) => {
   const result = await SaveProfileService  (req);
   return res.status(200).json(result);
