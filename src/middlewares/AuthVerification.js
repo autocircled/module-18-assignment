@@ -1,5 +1,5 @@
 const {DecodeToken} = require("../utility/TokenHelper");
-module.exports=(req,res,next)=>{
+module.exports= async (req,res,next)=>{
 
     // Receive Token
     let token=req.headers['token']
@@ -7,20 +7,26 @@ module.exports=(req,res,next)=>{
         token=req.cookies['token']
     }
 
+  try {
+        let decoded = await DecodeToken(token);
 
-  // Token Decode
-  let decoded=DecodeToken(token)
-
-
-  // Request Header Email+UserID Add
-  if(decoded===null){
-      return res.status(401).json({status:"fail", message:"Unauthorized"})
-  }
-  else {
-    let email=decoded['email'];
-    let user_id=decoded['user_id'];
-    req.headers.email=email;
-    req.headers.user_id=user_id;
-    next();
-  }
+        if (decoded === null) {
+            return res.status(401).json({
+                status: "Fail",
+                message: "Unauthorized"
+            });
+        } else {
+            req.decodedToken = {
+                email: decoded['email'],
+                user_id: decoded['user_id']
+            };
+            next();
+        }
+    } catch (error) {
+        console.error("Error decoding token:", error);
+        return res.status(500).json({
+            status: "Error",
+            message: "Internal Server Error"
+        });
+    }
 }
